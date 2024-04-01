@@ -1,9 +1,12 @@
+import re
 from docutils import nodes
+from docutils.parsers.rst import roles
 from sphinx import addnodes
 from sphinx.environment.adapters import toctree
 
 from . import pygments_override, translator
 
+ALLOWED_FORMATTING_CLASSES = ["text-success", "text-info", "text-warning", "text-danger"]
 
 def setup(app):
     app.set_translator('html', translator.BootstrapTranslator)
@@ -15,6 +18,7 @@ def setup(app):
     app.add_js_file('js/menu.js')
     app.add_js_file('js/page_toc.js')
     app.add_js_file('js/switchers.js')
+    roles.register_local_role('icon', icon_role)
 
     return {
         'parallel_read_safe': True,
@@ -107,3 +111,32 @@ def resolve(old_resolve, tree, docname, *args, **kwargs):
     if resolved_toc:  # `resolve` returns None if the depth of the TOC to resolve is too high
         _update_toctree_nodes(resolved_toc)
     return resolved_toc
+
+
+def handle_error(inliner, rawtext, error_message, lineno):
+    """
+    Handle an error by creating a system message node.
+    """
+    error_node = nodes.system_message(
+        lineno, backrefs=[], source=rawtext, type='error', level=1)
+    error_node['message'] = inliner.reporter.error(error_message, line=lineno)
+    return [error_node], []
+
+
+def icon_role(role, rawtext, text, lineno, inliner, options={}, content=[]):
+    """
+    Custom role for adding icons to the documentation.
+    """
+    full_text = ""
+    for item in text.split():
+        if item in ALLOWED_FORMATTING_CLASSES or 'fa-' in item:
+            full_text += f"{item} "
+        else:
+            return handle_error(
+                inliner, rawtext, f"'{item}' is not a valid icon formatting class", lineno)
+    if full_text != "":
+        inline_node = nodes.inline(classes=[full_text])
+        return [inline_node], []
+    else:
+        return handle_error(
+            inliner, rawtext, f"Icon classname issue", lineno)

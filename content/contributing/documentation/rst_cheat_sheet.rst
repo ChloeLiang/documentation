@@ -211,6 +211,48 @@ Use the `command` markup to highlight a command.
           Run the command :command:`make clean html` to delete existing built files and build the
           documentation to HTML.
 
+.. _contributing/icons:
+
+Icons
+-----
+
+Use the `icon` markup to add a class name of an icon. The icon set used is *Font Awesome*. It is
+recommended to accompany an icon with a label (`guilabel`), however, it is not mandatory.
+
+.. list-table::
+   :class: o-showcase-table
+
+   * - The graph view is represented by the :icon:`fa-bar-chart` :guilabel:`(bar chart)` icon.
+
+   * - .. code-block:: text
+
+          The graph view is represented by the :icon:`fa-bar-chart` :guilabel:`(bar chart)` icon.
+
+Multiple classes can be used as well, separated by a space, to match the UI orientation and color:
+
+.. list-table::
+   :class: o-showcase-table
+
+   * - - :icon:`fa-code-fork fa-flip-vertical text-success` :guilabel:`Add Another Activity`
+       - :icon:`fa-envelope-open-o text-success` :guilabel:`Opened`
+       - :icon:`fa-envelope-open-o text-danger` :guilabel:`Not Opened`
+       - :icon:`fa-reply text-success` :guilabel:`Replied`
+       - :icon:`fa-reply text-danger` :guilabel:`Not Replied`
+       - :icon:`fa-hand-pointer-o text-success` :guilabel:`Clicked`
+       - :icon:`fa-hand-pointer-o text-danger` :guilabel:`Not Clicked`
+       - :icon:`fa-exclamation-circle text-danger` :guilabel:`Bounced`
+
+   * - .. code-block:: text
+
+          - :icon:`fa-code-fork fa-flip-vertical text-success` :guilabel:`Add Another Activity`
+          - :icon:`fa-envelope-open-o text-success` :guilabel:`Opened`
+          - :icon:`fa-envelope-open-o text-danger` :guilabel:`Not Opened`
+          - :icon:`fa-reply text-success` :guilabel:`Replied`
+          - :icon:`fa-reply text-danger` :guilabel:`Not Replied`
+          - :icon:`fa-hand-pointer-o text-success` :guilabel:`Clicked`
+          - :icon:`fa-hand-pointer-o text-danger` :guilabel:`Not Clicked`
+          - :icon:`fa-exclamation-circle text-danger` :guilabel:`Bounced`
+
 .. _contributing/lists:
 
 Lists
